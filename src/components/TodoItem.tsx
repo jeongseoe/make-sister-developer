@@ -61,11 +61,11 @@ const Text = styled.div<{ done: boolean }>`
 interface Props {
   done: boolean;
   text: string;
-  // id: number;
+  id: number;
 }
 
 function TodoItem(props: Props) {
-  const { done, text } = props;
+  const { done, text, id } = props;
 
   // Todo에 action을 부여하기 위한 dispatch와 eventHandler
   return (
