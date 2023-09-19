@@ -13,15 +13,13 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
-  const [open, setOpen] = useState(false);
-
   return (
     <TodoProvider>
       <GlobalStyle />
       <TodoTemplate>
         <TodoHead />
         <TodoList />
-        <TodoCreate open={open} setOpen={setOpen} />
+        <TodoCreate />
       </TodoTemplate>
     </TodoProvider>
   );

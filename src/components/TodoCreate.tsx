@@ -4,6 +4,7 @@ import { MdAdd } from "react-icons/md";
 import { useTodoDispatch } from "./TodoContext";
 
 const CircleButton = styled.button<{ open: boolean }>`
+  //숙제 Todo 바탕화면 다크모드일때 변경될거 변수로 빼기
   background: #38d9a9;
   &:hover {
     background: #63e6be;
@@ -73,13 +74,15 @@ const Input = styled.input`
   box-sizing: border-box;
 `;
 
-interface Props {
-  open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
+// interface Props {
+//   open: boolean;
+//   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+// }
 
-function TodoCreate(props: Props) {
-  const { open, setOpen } = props;
+function TodoCreate() {
+  // 숙제 응집성 키워드 공부하기 a에서 쓰이는 코드는 a에서만 정의해둬도 된다.
+  // 만약 여러군데 써야하는 거면 부모에 올려두는게 맞지만, 아니면 혼자만 써도된다.
+  const [open, setOpen] = useState(false);
 
   const onToggle = () => setOpen(!open);
 
