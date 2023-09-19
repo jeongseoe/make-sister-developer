@@ -9,6 +9,7 @@ export type Todo = {
 
 // 투두들의 타입지정도 마찬가지로 지정하고
 type TodosState = Todo[];
+// 다크모드 추가, todosState isDarkmod (boolean) 만들기
 // createContext도 제네릭(함수에서 사용할 타입)을 지정하고 함수 인자를 넣어놔야한다.
 const TodosStateContext = createContext<TodosState | undefined>(undefined);
 
@@ -26,6 +27,7 @@ const TodosDispatchContext = createContext<TodosDispatch | undefined>(
 // 리듀서의 인자인 state, action에서도 타입이 지정된 변수를 다시 지정해서 진행해야한다.
 function todosReducer(state: TodosState, action: Action) {
   switch (action.type) {
+    // 숙제 TODO action type string이 아니면 꺠지는 이유에 대해 공부해오기.
     case "CREATE":
       const nextId = Math.max(...state.map((todo) => todo.id)) + 1;
       return state.concat({
@@ -38,7 +40,7 @@ function todosReducer(state: TodosState, action: Action) {
         todo.id === action.id ? { ...todo, done: !todo.done } : todo
       );
     case "REMOVE":
-      return state.filter((todo: any) => todo.id !== action.id);
+      return state.filter((todo) => todo.id !== action.id);
     default:
       throw new Error(`Unhandled action`);
   }
