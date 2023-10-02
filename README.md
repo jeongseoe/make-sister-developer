@@ -1,17 +1,24 @@
+<div align=center>
 1. todo list redux/typescript
-   ### 추가적인 숙제하기
-   ### 다크모드 추가, todosState isDarkmod (boolean) 만들기
-   ### 숙제 TODO action type string이 아니면 꺠지는 이유에 대해 공부해오기.
-   ### 숙제 Todo 바탕화면 다크모드일때 변경될거 변수로 빼기
-   
-   ### 숙제 응집성 키워드 공부하기 a에서 쓰이는 코드는 a에서만 정의해둬도 된다.
-   ### 만약 여러군데 써야하는 거면 부모에 올려두는게 맞지만, 아니면 혼자만 써도된다.
+
+#### 추가적인 숙제하기
+
+#### 다크모드 추가, todosState isDarkmod (boolean) 만들기
+
+#### 숙제 TODO action type string이 아니면 꺠지는 이유에 대해 공부해오기.
+
+#### 숙제 Todo 바탕화면 다크모드일때 변경될거 변수로 빼기
+
+#### 숙제 응집성 키워드 공부하기 a에서 쓰이는 코드는 a에서만 정의해둬도 된다.
+
+#### 만약 여러군데 써야하는 거면 부모에 올려두는게 맞지만, 아니면 혼자만 써도된다.
 
 2. react hook
    => 추가 숙제랑 다다음주까지 ..해오기!!!
 
 3. react hook form
 4. redux-persist
+</div>
 
 회사에서 쓰는 모듈 및 라이브러리
 "dependencies": {
