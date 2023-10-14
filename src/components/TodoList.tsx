@@ -10,13 +10,19 @@ const TodoListBlock = styled.div`
   overflow: scroll;
 `;
 
-function TodoList() {
+interface Props {
+  dark: boolean;
+}
+
+function TodoList(props: Props) {
+  const { dark } = props;
   const todos = useTodoState();
 
   return (
     <TodoListBlock>
-      {todos.map((todo) => (
+      {todos.todoList.map((todo) => (
         <TodoItem
+          dark={dark}
           key={todo.id}
           id={todo.id}
           text={todo.text}

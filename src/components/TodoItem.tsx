@@ -48,25 +48,52 @@ const CheckCircle = styled.div<{ done: boolean }>`
     `}
 `;
 
-const Text = styled.div<{ done: boolean }>`
+const Text = styled.div<{ done: boolean; dark: boolean }>`
   flex: 1;
   font-size: 21px;
   color: #495057;
-  ${(props) =>
+  /* ${(props) =>
     props.done &&
     css`
       color: #ced4da;
+    `} */
+
+  ${(props) =>
+    props.dark &&
+    !props.done &&
+    css`
+      color: #c7c9cb;
+    `}
+  ${(props) =>
+    props.dark &&
+    props.done &&
+    css`
+      color: #475858;
+    `}
+
+    ${(props) =>
+    !props.dark &&
+    props.done &&
+    css`
+      color: #c7c9cb;
+    `}
+  ${(props) =>
+    !props.dark &&
+    !props.done &&
+    css`
+      color: #475858;
     `}
 `;
 
 interface Props {
+  dark: boolean;
   done: boolean;
   text: string;
   id: number;
 }
 
 function TodoItem(props: Props) {
-  const { done, text, id } = props;
+  const { done, text, id, dark } = props;
 
   const dispatch = useTodoDispatch();
 
@@ -79,7 +106,9 @@ function TodoItem(props: Props) {
       <CheckCircle done={done} onClick={onToggle}>
         {done && <MdDone />}
       </CheckCircle>
-      <Text done={done}>{text}</Text>
+      <Text dark={dark} done={done}>
+        {text}
+      </Text>
       <Remove onClick={onRemove}>
         <MdDelete />
       </Remove>

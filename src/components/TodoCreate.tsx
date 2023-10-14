@@ -53,7 +53,7 @@ const InsertFormPositioner = styled.div`
   position: absolute;
 `;
 
-const InsertForm = styled.form`
+const InsertForm = styled.form<{ dark: boolean }>`
   background: #f8f9fa;
   padding-left: 32px;
   padding-top: 32px;
@@ -62,6 +62,11 @@ const InsertForm = styled.form`
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
   border-top: 1px solid #e9ecef;
+  ${(props) =>
+    props.dark &&
+    css`
+      background: #536a7e;
+    `}
 `;
 
 const Input = styled.input`
@@ -74,14 +79,14 @@ const Input = styled.input`
   box-sizing: border-box;
 `;
 
-// interface Props {
-//   open: boolean;
-//   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-// }
+interface Props {
+  dark: boolean;
+}
 
-function TodoCreate() {
+function TodoCreate(props: Props) {
   // 숙제 응집성 키워드 공부하기 a에서 쓰이는 코드는 a에서만 정의해둬도 된다.
   // 만약 여러군데 써야하는 거면 부모에 올려두는게 맞지만, 아니면 혼자만 써도된다.
+  const { dark } = props;
   const [open, setOpen] = useState(false);
 
   const onToggle = () => setOpen(!open);
@@ -102,7 +107,7 @@ function TodoCreate() {
     <>
       {open && (
         <InsertFormPositioner>
-          <InsertForm onSubmit={onSubmit}>
+          <InsertForm dark={dark} onSubmit={onSubmit}>
             <Input
               autoFocus
               placeholder="할 일을 입력 후, Enter 를 누르세요"
