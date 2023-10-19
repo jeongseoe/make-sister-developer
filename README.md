@@ -14,10 +14,19 @@
 #### 만약 여러군데 써야하는 거면 부모에 올려두는게 맞지만, 아니면 혼자만 써도된다.
 
 2. react hook
-   => 추가 숙제랑 다다음주까지 ..해오기!!!
+   <!-- => 추가 숙제랑 다다음주까지 ..해오기!!!
+   // 취소!!! -->
+
+   => isDarkMode context에서 제거하고, dark -> isDarkmode 로 done -> isDone으로 변경하기,
+   카테고리 추가하고, 검색기능까지 넣기,
+   axios 기능 create()로 전역객체만들어서 쓰고, CatPopUp컴포넌트에
+   url 박아서 보여주기.
 
 3. react hook form
 4. redux-persist
+
+await/async
+
 </div>
 
 회사에서 쓰는 모듈 및 라이브러리

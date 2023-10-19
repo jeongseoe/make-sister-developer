@@ -29,7 +29,7 @@ const TodoItemBlock = styled.div`
 `;
 
 // styled 에 props를 사용할 때도 타입을 지정해야한다.
-const CheckCircle = styled.div<{ done: boolean }>`
+const CheckCircle = styled.div<{ isDone: boolean }>`
   width: 32px;
   height: 32px;
   border-radius: 16px;
@@ -41,75 +41,56 @@ const CheckCircle = styled.div<{ done: boolean }>`
   margin-right: 20px;
   cursor: pointer;
   ${(props) =>
-    props.done &&
+    props.isDone &&
     css`
       border: 1px solid #38d9a9;
       color: #38d9a9;
     `}
 `;
 
-const Text = styled.div<{ done: boolean; dark: boolean }>`
+const Text = styled.div<{ isDone: boolean; isDark: boolean }>`
   flex: 1;
   font-size: 21px;
   color: #495057;
-  /* ${(props) =>
-    props.done &&
-    css`
-      color: #ced4da;
-    `} */
 
   ${(props) =>
-    props.dark &&
-    !props.done &&
-    css`
-      color: #c7c9cb;
-    `}
-  ${(props) =>
-    props.dark &&
-    props.done &&
+    props.isDark === props.isDone &&
     css`
       color: #475858;
     `}
 
-    ${(props) =>
-    !props.dark &&
-    props.done &&
+  ${(props) =>
+    props.isDark !== props.isDone &&
     css`
       color: #c7c9cb;
-    `}
-  ${(props) =>
-    !props.dark &&
-    !props.done &&
-    css`
-      color: #475858;
     `}
 `;
 
 interface Props {
-  dark: boolean;
-  done: boolean;
+  isDark: boolean;
+  isDone: boolean;
   text: string;
   id: number;
 }
 
 function TodoItem(props: Props) {
-  const { done, text, id, dark } = props;
+  const { isDone, text, id, isDark } = props;
 
   const dispatch = useTodoDispatch();
 
-  const onToggle = () => dispatch({ type: "TOGGLE", id });
-  const onRemove = () => dispatch({ type: "REMOVE", id });
+  const toggleTodo = () => dispatch({ type: "TOGGLE", id });
+  const removeToggle = () => dispatch({ type: "REMOVE", id });
 
   // Todo에 action을 부여하기 위한 dispatch와 eventHandler
   return (
     <TodoItemBlock>
-      <CheckCircle done={done} onClick={onToggle}>
-        {done && <MdDone />}
+      <CheckCircle isDone={isDone} onClick={toggleTodo}>
+        {isDone && <MdDone />}
       </CheckCircle>
-      <Text dark={dark} done={done}>
+      <Text isDark={isDark} isDone={isDone}>
         {text}
       </Text>
-      <Remove onClick={onRemove}>
+      <Remove onClick={removeToggle}>
         <MdDelete />
       </Remove>
     </TodoItemBlock>

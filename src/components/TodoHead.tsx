@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { useTodoState } from "./TodoContext";
 
-const TodoHeadBlock = styled.div<{ dark: boolean }>`
+const TodoHeadBlock = styled.div<{ isDark: boolean }>`
   padding-top: 48px;
   padding-left: 32px;
   padding-right: 32px;
@@ -24,7 +24,7 @@ const TodoHeadBlock = styled.div<{ dark: boolean }>`
     font-weight: bold;
   }
   ${(props) =>
-    props.dark &&
+    props.isDark &&
     css`
       h1 {
         margin: 0;
@@ -46,13 +46,13 @@ const TodoHeadBlock = styled.div<{ dark: boolean }>`
 `;
 
 interface Props {
-  dark: boolean;
+  isDark: boolean;
 }
 
 function TodoHead(props: Props) {
-  const { dark } = props;
+  const { isDark } = props;
   const todos = useTodoState();
-  const undoneTasks = todos.todoList.filter((todo) => !todo.done);
+  const undoneTasks = todos.filter((todo) => !todo.isDone);
 
   const today = new Date();
   const dateString = today.toLocaleDateString("ko-KR", {
@@ -63,7 +63,7 @@ function TodoHead(props: Props) {
   const dayName = today.toLocaleDateString("ko-KR", { weekday: "long" });
 
   return (
-    <TodoHeadBlock dark={dark}>
+    <TodoHeadBlock isDark={isDark}>
       <h1>{dateString}</h1>
       <div className="day">{dayName}</div>
       <div className="tasks-left">할 일 {undoneTasks.length}개 남음</div>

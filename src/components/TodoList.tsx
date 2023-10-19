@@ -11,22 +11,22 @@ const TodoListBlock = styled.div`
 `;
 
 interface Props {
-  dark: boolean;
+  isDark: boolean;
 }
 
 function TodoList(props: Props) {
-  const { dark } = props;
+  const { isDark } = props;
   const todos = useTodoState();
 
   return (
     <TodoListBlock>
-      {todos.todoList.map((todo) => (
+      {todos.map((todo) => (
         <TodoItem
-          dark={dark}
+          isDark={isDark}
           key={todo.id}
           id={todo.id}
           text={todo.text}
-          done={todo.done}
+          isDone={todo.isDone}
         />
       ))}
     </TodoListBlock>

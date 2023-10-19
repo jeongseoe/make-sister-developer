@@ -4,11 +4,14 @@ import React, { useReducer, createContext, useContext, Dispatch } from "react";
 export type Todo = {
   id: number;
   text: string;
-  done: boolean;
+  isDone: boolean;
 };
 
 // 투두들의 타입지정도 마찬가지로 지정하고
-type TodosState = { todoList: Todo[]; isDarkMode: boolean };
+// TODO : isDarkMode 제거...
+// app.tsx 에서 상태관리 하도록 하기!
+//
+type TodosState = Todo[];
 // 다크모드 추가, todosState isDarkmod (boolean) 만들기
 // createContext도 제네릭(함수에서 사용할 타입)을 지정하고 함수 인자를 넣어놔야한다.
 const TodosStateContext = createContext<TodosState | undefined>(undefined);
@@ -17,8 +20,7 @@ const TodosStateContext = createContext<TodosState | undefined>(undefined);
 type Action =
   | { type: "CREATE"; text: string }
   | { type: "TOGGLE"; id: number }
-  | { type: "REMOVE"; id: number }
-  | { type: "COLOR"; isDarkMode: boolean };
+  | { type: "REMOVE"; id: number };
 
 type TodosDispatch = Dispatch<Action>;
 const TodosDispatchContext = createContext<TodosDispatch | undefined>(
@@ -30,32 +32,18 @@ function todosReducer(state: TodosState, action: Action) {
   switch (action.type) {
     // 숙제 TODO action type string이 아니면 꺠지는 이유에 대해 공부해오기.
     case "CREATE":
-      const nextId = Math.max(...state.todoList.map((todo) => todo.id)) + 1;
-      return {
-        todoList: state.todoList.concat({
-          id: nextId,
-          text: action.text,
-          done: false,
-        }),
-        isDarkMode: state.isDarkMode,
-      };
+      const nextId = Math.max(...state.map((todo) => todo.id)) + 1;
+      return state.concat({
+        id: nextId,
+        text: action.text,
+        isDone: false,
+      });
     case "TOGGLE":
-      return {
-        todoList: state.todoList.map((todo) =>
-          todo.id === action.id ? { ...todo, done: !todo.done } : todo
-        ),
-        isDarkMode: state.isDarkMode,
-      };
+      return state.map((todo) =>
+        todo.id === action.id ? { ...todo, isDone: !todo.isDone } : todo
+      );
     case "REMOVE":
-      return {
-        todoList: state.todoList.filter((todo) => todo.id !== action.id),
-        isDarkMode: state.isDarkMode,
-      };
-    case "COLOR":
-      return {
-        todoList: state.todoList,
-        isDarkMode: !state.isDarkMode,
-      };
+      return state.filter((todo) => todo.id !== action.id);
     default:
       throw new Error(`Unhandled action`);
   }
@@ -65,34 +53,29 @@ interface Props {
   children: React.ReactNode;
 }
 
-const initialState = {
-  todoList: [
+export function TodoProvider({ children }: Props) {
+  const [todos, dispatch] = useReducer(todosReducer, [
     {
       id: 1,
       text: "프로젝트 생성하기",
-      done: true,
+      isDone: true,
     },
     {
       id: 2,
       text: "컴포넌트 스타일링하기",
-      done: true,
+      isDone: true,
     },
     {
       id: 3,
       text: "Context 만들기",
-      done: false,
+      isDone: false,
     },
     {
       id: 4,
       text: "기능 구현하기",
-      done: false,
+      isDone: false,
     },
-  ],
-  isDarkMode: false,
-};
-
-export function TodoProvider({ children }: Props) {
-  const [todos, dispatch] = useReducer(todosReducer, initialState);
+  ]);
 
   return (
     <TodosDispatchContext.Provider value={dispatch}>
