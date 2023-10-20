@@ -5,6 +5,7 @@ export type Todo = {
   id: number;
   text: string;
   isDone: boolean;
+  // category:string;
 };
 
 // 투두들의 타입지정도 마찬가지로 지정하고
@@ -37,6 +38,7 @@ function todosReducer(state: TodosState, action: Action) {
         id: nextId,
         text: action.text,
         isDone: false,
+        // category:action.text
       });
     case "TOGGLE":
       return state.map((todo) =>
