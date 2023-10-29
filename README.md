@@ -19,7 +19,7 @@
 
    => isDarkMode context에서 제거하고, dark -> isDarkmode 로 done -> isDone으로 변경하기, (+)
 
-   카테고리 추가하고, 검색기능까지 넣기,
+   카테고리 추가하고(+) , 검색기능까지 넣기(-)
 
    axios 기능 create()로 전역객체만들어서 쓰고, CatPopUp컴포넌트에
    url 박아서 보여주기.
