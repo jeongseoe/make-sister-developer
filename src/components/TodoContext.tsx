@@ -5,7 +5,7 @@ export type Todo = {
   id: number;
   text: string;
   isDone: boolean;
-  // category:string;
+  category: string;
 };
 
 // 투두들의 타입지정도 마찬가지로 지정하고
@@ -19,7 +19,7 @@ const TodosStateContext = createContext<TodosState | undefined>(undefined);
 
 // 액션의 타입도 지정해야한다.
 type Action =
-  | { type: "CREATE"; text: string }
+  | { type: "CREATE"; text: string; cate: string }
   | { type: "TOGGLE"; id: number }
   | { type: "REMOVE"; id: number };
 
@@ -38,7 +38,7 @@ function todosReducer(state: TodosState, action: Action) {
         id: nextId,
         text: action.text,
         isDone: false,
-        // category:action.text
+        category: action.cate,
       });
     case "TOGGLE":
       return state.map((todo) =>
@@ -61,21 +61,25 @@ export function TodoProvider({ children }: Props) {
       id: 1,
       text: "프로젝트 생성하기",
       isDone: true,
+      category: "공부",
     },
     {
       id: 2,
       text: "컴포넌트 스타일링하기",
       isDone: true,
+      category: "공부",
     },
     {
       id: 3,
       text: "Context 만들기",
       isDone: false,
+      category: "공부",
     },
     {
       id: 4,
-      text: "기능 구현하기",
+      text: "집 청소하기",
       isDone: false,
+      category: "집안일",
     },
   ]);
 
