@@ -79,6 +79,30 @@ const Input = styled.input`
   box-sizing: border-box;
 `;
 
+const InputCategory = styled.input`
+  padding: 12px;
+  border-radius: 4px;
+  border: 1px solid #dee2e6;
+  width: 45%;
+  outline: none;
+  font-size: 18px;
+  box-sizing: border-box;
+`;
+
+const ButtonBox = styled.div`
+  margin-top: 10px;
+  text-align: center;
+`;
+
+const Button = styled.button`
+  padding: 10px;
+  border: none;
+  background-color: lightBlue;
+  border-radius: 5px;
+  width: 30%;
+  font-size: 15px;
+`;
+
 interface Props {
   isDark: boolean;
 }
@@ -92,15 +116,33 @@ function TodoCreate(props: Props) {
   const onToggle = () => setOpen(!open);
 
   const [value, setValue] = useState("");
+  const [category, setCategory] = useState("");
+
   const dispatch = useTodoDispatch();
 
-  const onSubmit = (e: React.FormEvent) => {
+  const textOnChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const {
+      currentTarget: { value },
+    } = event;
+    setValue(value);
+  };
+
+  const categoryOnChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const {
+      currentTarget: { value },
+    } = event;
+    setCategory(value);
+  };
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch({
       type: "CREATE",
       text: value,
+      cate: category,
     });
     setValue("");
+    setCategory("");
   };
 
   return (
@@ -108,12 +150,24 @@ function TodoCreate(props: Props) {
       {open && (
         <InsertFormPositioner>
           <InsertForm isDark={isDark} onSubmit={onSubmit}>
+            <InputCategory
+              className="category"
+              autoFocus
+              placeholder="카테고리를 입력해주세요"
+              onChange={categoryOnChange}
+              value={category}
+            />
+            <p />
             <Input
+              className="todo"
               autoFocus
               placeholder="할 일을 입력 후, Enter 를 누르세요"
-              onChange={(e) => setValue(e.target.value)}
+              onChange={textOnChange}
               value={value}
             />
+            <ButtonBox>
+              <Button>제출</Button>
+            </ButtonBox>
           </InsertForm>
         </InsertFormPositioner>
       )}
