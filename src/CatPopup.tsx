@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { getCatApi } from "./api";
 
 interface Cat {
   id: string;
@@ -19,21 +20,9 @@ function CatPopup(props: Props) {
 
   //useEffect는 비동기적으로 동작
   useEffect(() => {
-    let completed = false; //초기에는 실행해야 되기때문에 false flag 변수
-
-    //query를 리턴하는 함수를 result에 할당
-    async function get() {
-      const result = await axios.get(
-        `https://api.thecatapi.com/v1/images/search`
-      );
-      if (!completed) setData(result.data);
-    }
-    get();
+    getCatApi().then((a) => setData(a.data));
+    // async 나 promise 둘다 Then을 사용할 수 있다.
     setInput(false);
-    return () => {
-      completed = true;
-    };
-    //query가 변할때 useEffect를 실행해야하는 시점이다
   }, [input]); //input에 값이 변경이 되었을때 effect를 실행한다
 
   return (

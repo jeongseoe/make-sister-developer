@@ -31,13 +31,19 @@ function TodoList(props: Props) {
   const todos = useTodoState();
   const [search, setSearch] = useState("");
 
-  const 카테고리 = todos.map((a) => a.category);
-  const 중복제거 = 카테고리.filter((v, i) => 카테고리.indexOf(v) === i);
+  const 카테고리s = todos.map((todo) => todo.category);
+  const uniqueCategories = 카테고리s.filter(
+    (category, i) => 카테고리s.indexOf(category) === i
+  );
 
-  const 검색 = todos.filter((v) => v.text.includes(search));
-  const 검색카테고리 = 검색.map((a) => a.category);
-  const 검색중복제거 = 검색카테고리.filter(
-    (v, i) => 검색카테고리.indexOf(v) === i
+  const searchIncludedTodos = todos.filter((todo) =>
+    todo.text.includes(search)
+  );
+  const searchIncludedTodosCategories = searchIncludedTodos.map(
+    (todo) => todo.category
+  );
+  const searchUniqueCategories = searchIncludedTodosCategories.filter(
+    (category, i) => searchIncludedTodosCategories.indexOf(category) === i
   );
 
   // 쓰로틀링 디바운싱 알아보기(적용하는것도 좋을 듯)
@@ -49,51 +55,46 @@ function TodoList(props: Props) {
       </SearchBox>
 
       {search.length //검색한게 있다면?
-        ? 검색중복제거.map((title) => {
+        ? searchUniqueCategories.map((category) => {
             return (
               <>
                 <div style={{ paddingBottom: "20px", paddingTop: "10px" }}>
-                  {title}
+                  {category}
                 </div>
-                {todos.map((item) => {
+                {todos.map((todo) => {
                   if (
-                    item.text.includes(`${search}`) &&
-                    item.category === `${title}`
+                    todo.text.includes(search) &&
+                    todo.category === category
                   ) {
                     return (
                       <TodoItem
                         isDark={isDark}
-                        key={item.id}
-                        id={item.id}
-                        text={item.text}
-                        isDone={item.isDone}
+                        key={todo.id}
+                        id={todo.id}
+                        text={todo.text}
+                        isDone={todo.isDone}
                       />
                     );
-                  } else if (
-                    !item.text.includes(`${search}`) &&
-                    item.category === `${title}`
-                  ) {
-                    return;
                   }
                 })}
               </>
             );
           })
-        : 중복제거.map((title) => {
+        : uniqueCategories.map((category) => {
             return (
               <>
                 <div style={{ paddingBottom: "20px", paddingTop: "10px" }}>
-                  {title}
+                  {category}
                 </div>
-                {todos.map((item) => {
-                  if (item.category === `${title}`) {
+                {todos.map((todo) => {
+                  if (todo.category === `${category}`) {
                     return (
                       <TodoItem
                         isDark={isDark}
-                        key={item.id}
-                        id={item.id}
-                        text={item.text}
-                        isDone={item.isDone}
+                        key={todo.id}
+                        id={todo.id}
+                        text={todo.text}
+                        isDone={todo.isDone}
                       />
                     );
                   }

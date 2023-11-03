@@ -55,7 +55,7 @@ function App() {
       background-color: #548854;
     }
   `;
-  console.log(input);
+  // console.log(input);
   return (
     <>
       <Global />
