@@ -7,9 +7,12 @@ import TodoList from "./components/TodoList";
 import TodoCreate from "./components/TodoCreate";
 import styled from "styled-components";
 import { TodoProvider } from "./components/TodoContext";
+import CatPopup from "./CatPopup";
 
 function App() {
   const [isDark, setIsDark] = useState(false);
+  const [input, setInput] = useState(false);
+
   // style 변수
   const backgroundDark = String(isDark);
   const buttonDark = `button${backgroundDark}`;
@@ -52,15 +55,18 @@ function App() {
       background-color: #548854;
     }
   `;
-
+  console.log(input);
   return (
-    <TodoProvider>
+    <>
       <Global />
-      <TodoTemplate isDark={isDark}>
-        <TodoHead isDark={isDark} />
-        <TodoList isDark={isDark} />
-        <TodoCreate isDark={isDark} />
-      </TodoTemplate>
+      <CatPopup input={input} setInput={setInput} />
+      <TodoProvider>
+        <TodoTemplate isDark={isDark}>
+          <TodoHead isDark={isDark} />
+          <TodoList isDark={isDark} />
+          <TodoCreate isDark={isDark} setInput={setInput} />
+        </TodoTemplate>
+      </TodoProvider>
       <div
         style={{
           marginTop: "-200px",
@@ -71,7 +77,7 @@ function App() {
       >
         <StyleButton onClick={() => setIsDark(!isDark)}>Dark Mode</StyleButton>
       </div>
-    </TodoProvider>
+    </>
   );
 }
 
