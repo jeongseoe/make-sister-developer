@@ -6,11 +6,7 @@ import TodoHead from "./components/TodoHead";
 import TodoList from "./components/TodoList";
 import TodoCreate from "./components/TodoCreate";
 import styled from "styled-components";
-import {
-  useTodoState,
-  TodoProvider,
-  useTodoDispatch,
-} from "./components/TodoContext";
+import { TodoProvider } from "./components/TodoContext";
 
 interface Props {
   isDark: boolean;
