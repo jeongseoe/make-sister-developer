@@ -105,12 +105,13 @@ const Button = styled.button`
 
 interface Props {
   isDark: boolean;
+  setInput: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function TodoCreate(props: Props) {
   // 숙제 응집성 키워드 공부하기 a에서 쓰이는 코드는 a에서만 정의해둬도 된다.
   // 만약 여러군데 써야하는 거면 부모에 올려두는게 맞지만, 아니면 혼자만 써도된다.
-  const { isDark } = props;
+  const { isDark, setInput } = props;
   const [open, setOpen] = useState(false);
 
   const onToggle = () => setOpen(!open);
@@ -136,6 +137,7 @@ function TodoCreate(props: Props) {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     dispatch({
       type: "CREATE",
       text: value,
@@ -143,6 +145,7 @@ function TodoCreate(props: Props) {
     });
     setValue("");
     setCategory("");
+    setInput(true);
   };
 
   return (
