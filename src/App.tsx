@@ -8,14 +8,8 @@ import TodoCreate from "./components/TodoCreate";
 import styled from "styled-components";
 import { TodoProvider } from "./components/TodoContext";
 
-interface Props {
-  isDark: boolean;
-  setIsDark: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-function InnerApp(props: Props) {
-  const { isDark, setIsDark } = props;
-
+function App() {
+  const [isDark, setIsDark] = useState(false);
   // style 변수
   const backgroundDark = String(isDark);
   const buttonDark = `button${backgroundDark}`;
@@ -60,7 +54,7 @@ function InnerApp(props: Props) {
   `;
 
   return (
-    <>
+    <TodoProvider>
       <Global />
       <TodoTemplate isDark={isDark}>
         <TodoHead isDark={isDark} />
@@ -77,50 +71,6 @@ function InnerApp(props: Props) {
       >
         <StyleButton onClick={() => setIsDark(!isDark)}>Dark Mode</StyleButton>
       </div>
-    </>
-  );
-}
-
-// 1. Promise
-// 2. async await
-
-// axios로 todo api 호출을 해서 응답결과를 컴포넌트에 띄워보기!
-// pop Up  app.tsx 하위에 catPopUp 컴포넌트 만들기
-// https://api.thecatapi.com/v1/images/search 이 api 써서 구현해보기.
-
-// 1. axios 를 전역 객체로 만들어라.
-// 2. axios 에다가 host 를 박아서 만들어라.
-// const instance = axios.create({
-//   baseURL: 'https://some-domain.com/api/',
-//   headers: { 'X-Custom-Header': 'foobar' },
-//   timeout: 1000,
-// });
-
-// [
-// {
-// id: "ddf",
-// url: "https://cdn2.thecatapi.com/images/ddf.jpg",
-// width: 637,
-// height: 639
-// }
-// ]
-// interface Cat{
-//   id: string;
-//   url: string;
-//   width: number;
-//   height: number;
-// }
-// function getCats = instance.get("/pets").then(function (response) {
-//     // handle success
-//     response
-//   })
-
-function App() {
-  const [isDark, setIsDark] = useState(false);
-
-  return (
-    <TodoProvider>
-      <InnerApp isDark={isDark} setIsDark={setIsDark} />
     </TodoProvider>
   );
 }
